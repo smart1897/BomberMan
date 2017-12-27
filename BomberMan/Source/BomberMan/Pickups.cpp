@@ -66,7 +66,11 @@ APickups::APickups()
 		m_mat_Det = pDet.Object;
 	}
 
-
+	static ConstructorHelpers::FObjectFinder<USoundBase> pSound(TEXT("SoundWave'/Game/Sounds/power_up.power_up'"));
+	if (pSound.Succeeded())
+	{
+		m_cPickupSound = pSound.Object;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -165,7 +169,8 @@ void APickups::OnOverlapBegin(UPrimitiveComponent * newComp, AActor * OtherActor
 				break;
 			default:
 				break;
-			}			
+			}
+			UGameplayStatics::PlaySound2D(GetWorld(), m_cPickupSound);
 			Destroy();
 		}
 	}

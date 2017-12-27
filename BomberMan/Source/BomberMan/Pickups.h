@@ -55,4 +55,6 @@ private:
 	UMaterialInterface* m_mat_Det;
 
 	float m_fSelfDestroyTime;//Destrouy after certain time
+
+	USoundBase* m_cPickupSound;
 };
