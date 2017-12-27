@@ -1,6 +1,8 @@
 # BomberMan
 IKA
 
+Complete plan for the project has been done in plan.xlsx
+
 CONTENT THAT IS NOT CREATED BY ME:
 
 1: Local Multiplayer Keyboard input ref taken from
