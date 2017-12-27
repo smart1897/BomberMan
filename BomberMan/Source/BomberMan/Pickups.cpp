@@ -11,18 +11,18 @@ APickups::APickups()
 
 	//Create staic mesh component
 	m_cStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticComponent"));
-
+	//m_cStaticMeshComponent->SetCollisionEnabled(ECollisionEnabled)
 	//Apply the mesh and collison
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> pCube(TEXT("StaticMesh'/Game/Meshes/Brick.Brick'"));
 	m_cStaticMeshComponent->SetStaticMesh(pCube.Object);
-	m_cStaticMeshComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	m_cStaticMeshComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
 	RootComponent = m_cStaticMeshComponent;
 
 	//Set the delegate function for overlap method
 	m_cStaticMeshComponent->bGenerateOverlapEvents = true;
 	FScriptDelegate BeginOverlapDelegate;
 	BeginOverlapDelegate.BindUFunction(this, FName("OnOverlapBegin"));
-	m_cStaticMeshComponent->OnComponentBeginOverlap.AddUnique(BeginOverlapDelegate);
+	m_cStaticMeshComponent->OnComponentHit.AddUnique(BeginOverlapDelegate);
 
 	static ConstructorHelpers::FObjectFinder<UMaterial> pABomb(TEXT("Material'/Game/Materials/BombPlus_Mat'"));
 	if (pABomb.Succeeded())
@@ -71,6 +71,8 @@ APickups::APickups()
 	{
 		m_cPickupSound = pSound.Object;
 	}
+
+	SetActorEnableCollision(true);
 }
 
 // Called when the game starts or when spawned
