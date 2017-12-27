@@ -36,6 +36,28 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Bomber")
 		void SetInput(int id);
 
+	//Spawn bomb when key is preesed
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Bomber")
+		void PlaceBomb();
+
+	//Whenevr bomb is placed subtract the count
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		void AddBombs();
+
+	//Whenevr bomb is exploded add the bomb count
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		void SubtractBombs();
+
+	//Distance to which bomb should explode
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		int GetBombDistance();
+
+	//Get number of bombs available
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		int GetBombsAvailable();
+
 private:
 	int m_iPlayerID;
+	int m_iBombsAvailable;
+	int m_iBombBlastDistance;
 };

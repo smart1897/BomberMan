@@ -15,6 +15,8 @@ ABomber::ABomber()
 void ABomber::BeginPlay()
 {
 	Super::BeginPlay();
+	m_iBombsAvailable = 1;
+	m_iBombBlastDistance = 150;
 }
 
 // Called every frame
@@ -77,6 +79,7 @@ void ABomber::SetInput(int id)
 		InputComponent->BindAxis("MoveDown_P1", this, &ABomber::MoveDown);
 		InputComponent->BindAxis("MoveLeft_P1", this, &ABomber::MoveLeft);
 		InputComponent->BindAxis("MoveRight_P1", this, &ABomber::MoveRight);
+		InputComponent->BindAction("PlaceBomb_P1", IE_Pressed, this, &ABomber::PlaceBomb);
 	}
 	else if (id == 1)
 	{
@@ -84,6 +87,32 @@ void ABomber::SetInput(int id)
 		InputComponent->BindAxis("MoveDown_P2", this, &ABomber::MoveDown);
 		InputComponent->BindAxis("MoveLeft_P2", this, &ABomber::MoveLeft);
 		InputComponent->BindAxis("MoveRight_P2", this, &ABomber::MoveRight);
+		InputComponent->BindAction("PlaceBomb_P2", IE_Pressed, this, &ABomber::PlaceBomb);
 	}
+}
+
+void ABomber::AddBombs()
+{
+	m_iBombsAvailable++;
+}
+
+void ABomber::SubtractBombs()
+{
+	m_iBombsAvailable--;
+}
+
+int ABomber::GetBombDistance()
+{
+	return m_iBombBlastDistance;
+}
+
+int ABomber::GetBombsAvailable()
+{
+	return m_iBombsAvailable;
+}
+
+void ABomber::PlaceBomb_Implementation()
+{
+
 }
 
