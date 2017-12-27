@@ -32,6 +32,15 @@ public:
 	void MoveLeft(float delta);
 	void MoveRight(float delta);
 
+	//Modifier function based on Pickups
+	void AddMaxBombs();
+	void SubMaxBombs();
+	void ActivateDetonator();
+	void AddBombDistance();
+	void SubBombDistance();
+	void AddSpeed();
+	void SubSpeed();
+
 	//Binding Keyboard nd player ID
 	UFUNCTION(BlueprintCallable, Category = "Bomber")
 		void SetInput(int id);
@@ -54,10 +63,47 @@ public:
 
 	//Get number of bombs available
 	UFUNCTION(BlueprintCallable, Category = "Bomber")
-		int GetBombsAvailable();
+		int GetBombsAvailable();	
+
+	//Check whether we have detonator
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		bool IsDetonatorActivated();
+
+	//Explode the bomb with detonator
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		void DetonateBomb();
+
+	//Shold bomb explode
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		bool ShouldExplodeBomb();
+
+	//Add score when ever we break 
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		void AddScore(int score);
+
+	//Get current score for player
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		int GetScore();
+
+	//killed by bomb set player dead
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		void SetDead(bool isdead);
+
+	//is Player Alive?
+	UFUNCTION(BlueprintCallable, Category = "Bomber")
+		bool IsDead();
 
 private:
-	int m_iPlayerID;
-	int m_iBombsAvailable;
-	int m_iBombBlastDistance;
+	int m_iPlayerID; // PLayer id for bomber
+	int m_iBombsAvailable; // current available bombs
+	int m_iBombsPlaced; // current available bombs
+	int m_iMaxBombsAvailable; // Maximum available bombs
+	int m_iBombBlastDistance; // Bomb Blast Distance
+	float m_fMovementSpeed; // player movement speed
+	bool m_bActivateDetonator; // Activte detonator
+	float m_fDetonatorTime; // how much time still we have detonator
+	float m_fMaxDetonatorTime; // Maximun time we can have detonator
+	bool m_bShouldExplode; //Explode the bomb detonator is preesed
+	float m_fScore; //Player Score
+	bool m_bDead;//is player dead
 };
